@@ -1,41 +1,39 @@
 package com.example.projekselasasore.adapter;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.projekselasasore.R;
 import com.example.projekselasasore.model.MenuModel;
 
 import java.util.ArrayList;
 
-public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.myViewHolderList> {
-
+public class MenuAdapterGrid extends RecyclerView.Adapter<MenuAdapterGrid.myViewHolderGrid> {
     ArrayList<MenuModel> modelArrayList;
     Context context;
 
-    public MenuAdapter(ArrayList<MenuModel> modelArrayList, Context context) {
+    public MenuAdapterGrid(ArrayList<MenuModel> modelArrayList, Context context) {
         this.modelArrayList = modelArrayList;
         this.context = context;
     }
 
     @NonNull
     @Override
-    public myViewHolderList onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public myViewHolderGrid onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.format_tampilan_menu, parent, false);
+        View view = inflater.inflate(R.layout.format_tampilan_menu_grid, parent, false);
 
-        return new MenuAdapter.myViewHolderList(view);
+        return new MenuAdapterGrid.myViewHolderGrid(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myViewHolderList holder, int position) {
+    public void onBindViewHolder(@NonNull MenuAdapterGrid.myViewHolderGrid holder, int position) {
         holder.gambar_menu.setImageResource(modelArrayList.get(position).getGambarMenu());
         holder.c_nama_menu.setText(modelArrayList.get(position).getNamaMenu());
         holder.c_harga_menu.setText(modelArrayList.get(position).getHargaMenu());
@@ -47,10 +45,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.myViewHolderLi
         return modelArrayList.size();
     }
 
-    protected class myViewHolderList extends RecyclerView.ViewHolder {
+    protected class myViewHolderGrid extends RecyclerView.ViewHolder {
         ImageView gambar_menu;
         TextView c_nama_menu, c_harga_menu, c_satuan_menu;
-        public myViewHolderList(@NonNull View itemView) {
+        public myViewHolderGrid(@NonNull View itemView) {
             super(itemView);
 
             gambar_menu = itemView.findViewById(R.id.iv_foto_makanan);

@@ -2,6 +2,7 @@ package com.example.projekselasasore;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.projekselasasore.adapter.MenuAdapter;
+import com.example.projekselasasore.adapter.MenuAdapterGrid;
 import com.example.projekselasasore.model.MenuModel;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<MenuModel> modelArrayList = new ArrayList<>();
     RecyclerView recyclerView_menu;
+    int mode;
 
     int gambarMenu[] = {
             R.drawable.menu1,
@@ -75,11 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView_menu = findViewById(R.id.rv_menu);
 
-        baca_menu_makanan();
-
-        MenuAdapter menuAdapter = new MenuAdapter(modelArrayList, this);
-        recyclerView_menu.setAdapter(menuAdapter);
-        recyclerView_menu.setLayoutManager(new LinearLayoutManager(this));
+        showRecyclerList();
     }
 
     private void baca_menu_makanan() {
@@ -99,4 +98,41 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_pilihan, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        setMode(item.getItemId());
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void setMode(int selectedMode) {
+        switch (selectedMode) {
+            case R.id.item1:
+                showRecyclerList();
+                break;
+            case R.id.item2:
+                showRecyclerGrid();
+                break;
+        }
+        mode = selectedMode;
+    }
+
+    private void showRecyclerGrid() {
+        baca_menu_makanan();
+
+        MenuAdapterGrid menuAdapterGrid = new MenuAdapterGrid(modelArrayList, this);
+        recyclerView_menu.setAdapter(menuAdapterGrid);
+        recyclerView_menu.setLayoutManager(new GridLayoutManager(this, 2));
+    }
+
+    private void showRecyclerList() {
+        baca_menu_makanan();
+
+        MenuAdapter menuAdapter = new MenuAdapter(modelArrayList, this);
+        recyclerView_menu.setAdapter(menuAdapter);
+        recyclerView_menu.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+
 }
