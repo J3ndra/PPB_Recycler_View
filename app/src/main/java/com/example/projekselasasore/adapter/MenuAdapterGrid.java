@@ -2,13 +2,19 @@ package com.example.projekselasasore.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.projekselasasore.DetailActivity;
 import com.example.projekselasasore.R;
 import com.example.projekselasasore.model.MenuModel;
 
@@ -38,6 +44,17 @@ public class MenuAdapterGrid extends RecyclerView.Adapter<MenuAdapterGrid.myView
         holder.c_nama_menu.setText(modelArrayList.get(position).getNamaMenu());
         holder.c_harga_menu.setText(modelArrayList.get(position).getHargaMenu());
         holder.c_satuan_menu.setText(modelArrayList.get(position).getSatuanMenu());
+        holder.cv_item.setOnClickListener(v -> {
+            Toast.makeText(context, modelArrayList.get(position).getNamaMenu(), Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(context, DetailActivity.class);
+            intent.putExtra("gambarMenu", modelArrayList.get(position).getGambarMenu());
+            intent.putExtra("namaMenu", modelArrayList.get(position).getNamaMenu());
+            intent.putExtra("hargaMenu", modelArrayList.get(position).getHargaMenu());
+            intent.putExtra("satuanMenu", modelArrayList.get(position).getSatuanMenu());
+
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -46,11 +63,12 @@ public class MenuAdapterGrid extends RecyclerView.Adapter<MenuAdapterGrid.myView
     }
 
     protected class myViewHolderGrid extends RecyclerView.ViewHolder {
+        CardView cv_item;
         ImageView gambar_menu;
         TextView c_nama_menu, c_harga_menu, c_satuan_menu;
         public myViewHolderGrid(@NonNull View itemView) {
             super(itemView);
-
+            cv_item = itemView.findViewById(R.id.cv_item);
             gambar_menu = itemView.findViewById(R.id.iv_foto_makanan);
             c_nama_menu = itemView.findViewById(R.id.tv_nama_makanan);
             c_harga_menu = itemView.findViewById(R.id.tv_harga_makanan);

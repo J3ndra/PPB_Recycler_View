@@ -11,7 +11,8 @@
     android:layout_margin="5dp"
     cardview:cardCornerRadius="4dp"
     android:backgroundTint="@color/purple_200"
-    android:focusable="true">
+    android:focusable="true"
+    android:id="@+id/cv_item">
 
     <LinearLayout
         android:orientation="vertical"
